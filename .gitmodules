@@ -1,0 +1,3 @@
+[submodule "RVV_ukernels_Exo"]
+	path = RVV_ukernels_Exo
+	url = https://github.com/adcastel/RVV_ukernels_Exo
