@@ -1,5 +1,5 @@
-DTYPE = -DFP16
-DT=fp16
+DTYPE = -DFP32
+DT=fp32
 #MR = 8
 #NR = 12
 
@@ -11,7 +11,8 @@ LIB_BLIS     = -lblis -L$(BLIS_HOME)/lib
 INCLUDE = ${INCLUDE_BLIS}
 LIBS    = ${LIB_BLIS} -lm
 
-KPATH=src/RVV_256_UNROLL/${DT}/${MR}x${NR}/
+#KPATH=src/RVV_256_UNROLL/${DT}/${MR}x${NR}/
+KPATH=../kernels/RVV_256_${OPTION}/${DT}/${MR}x${NR}/
 FILE=kernels_RVV_${MR}x${NR}_${DT}
 
 ifeq ($(SWAP),1)

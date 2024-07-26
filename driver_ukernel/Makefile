@@ -4,7 +4,7 @@ CC=gcc
 CFLAGS= -O3 -march=rv64gcv -mabi=lp64d
 DT=fp32
 
-KPATH=kernels/RVV_256_${MODE}/${DT}/${MR}x${NR}/
+KPATH=../kernels/RVV_256_${MODE}/${DT}/${MR}x${NR}/
 FILE=kernels_RVV_${MR}x${NR}_${DT}
 
 ifeq ($(SWAP), 1)

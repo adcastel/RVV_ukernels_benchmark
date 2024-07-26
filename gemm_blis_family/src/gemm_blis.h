@@ -17,7 +17,7 @@
 
 #elif RVV_EXO
   #include <riscv_vector.h>
-  #if define FP32
+  #ifdef FP32
       #include "exo_matrix_RVV_fp32.h"
   #else  
       #include "exo_matrix_RVV_fp16.h"
