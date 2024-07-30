@@ -12,7 +12,7 @@ INCLUDE = ${INCLUDE_BLIS}
 LIBS    = ${LIB_BLIS} -lm
 
 #KPATH=src/RVV_256_UNROLL/${DT}/${MR}x${NR}/
-KPATH=../kernels/RVV_256_${OPTION}/${DT}/${MR}x${NR}/
+KPATH=../kernels/RVV_256_${OPT}/${DT}/${MR}x${NR}/
 FILE=kernels_RVV_${MR}x${NR}_${DT}
 
 ifeq ($(SWAP),1)
@@ -118,7 +118,7 @@ endif
 #  endif	
 #endif
 
-OPTFLAGS = $(FLAGS) -DCHECK -DMR=$(MR) -DNR=$(NR) -DKR=1 $(DL) $(DB) $(MODE) $(SIMD) $(DTYPE)
+OPTFLAGS = $(FLAGS) -DCHECK -DMR=$(MR) -DNR=$(NR) -DKR=1 $(DL) $(DB) $(MODE) $(SIMD) $(DTYPE) -D${OPT}
 #------------------------------------------
 
 OBJ = $(patsubst %, $(OBJDIR)/%, $(_OBJ))
@@ -130,10 +130,12 @@ $(OBJDIR)/%.o:%.c
 
         #$(kernels):
 build/${FILE}.o: 
+	@mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) $(OPTFLAGS) -c $(KPATH)/${ESP}/${FILE}.c -o build/${FILE}.o
 
 
 build/exo_matrix_RVV_${DT}.o:
+	@mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) $(OPTFLAGS) -c ${KPATH}/${ESP}/exo_matrix_RVV_${DT}.c -o build/exo_matrix_RVV_${DT}.o
 
 $(OBJDIR)/$(BIN): $(OBJ) 

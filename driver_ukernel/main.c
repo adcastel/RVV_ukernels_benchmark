@@ -42,8 +42,11 @@ int main(int argc, char * argv []) {
   float * Ce = malloc(sizeof(float)*Mf*Nf);
   initialize(Mf,Nf,K, A, B, C, Ce);
   ukrFunction ukr_au = *ukrmatrix[Mi][Ni][beta0];
+#ifdef BASE
+   ukr_au(NULL, K, &alpha, (struct exo_win_2f32c){A,{Mi,1}},(struct exo_win_2f32c) {B,{Ni,1}}, &beta, (struct exo_win_2f32){Ce,{Mi,1}});
+#else
   ukr_au(NULL, K, &alpha, A, Mf, B,Nf, &beta, Ce, Mf);
-
+#endif
   for (int ii =Mi; ii<=Mf; ii++){
           for(int jj=Ni;jj<=Nf;jj++){
               int M = ii; int N = jj;
@@ -57,13 +60,20 @@ int main(int argc, char * argv []) {
 
              start = dclock();
              for (int s = 0; s < reps; s++){
-                 //ukr(NULL, K, &alpha, A,B, &beta, (struct exo_win_2f32){Ce,{M,1}});
-                 ukr(NULL, K, &alpha,
+#ifdef BASE
+		      ukr(NULL, K, &alpha,
+                                 (struct exo_win_2f32c){A,{M,1}},
+                                 (struct exo_win_2f32c){B,{N,1}},
+                                 &beta,
+                                 (struct exo_win_2f32){Ce,{M,1}});
+#else
+		     ukr(NULL, K, &alpha,
                                  A,M,
                                  B,N,
                                  &beta,
                                  Ce,M);
-             }
+#endif
+	     }
              end = dclock();
 
             msec = (end - start) /reps;

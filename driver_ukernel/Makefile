@@ -38,7 +38,7 @@ OBJECTS := ${KPATH}/${ESP}/exo_matrix_RVV_${DT}.o $(kernels)
 all:main
 
 main: $(OBJECTS)
-	$(CC) $(CFLAGS) main.c -o test_uk $(OBJECTS) -I$(PWD) -I$(PWD)/$(KPATH)/${ESP} -L$(PWD)
+	$(CC) $(CFLAGS) main.c -o test_uk $(OBJECTS) -I$(PWD) -I$(PWD)/$(KPATH)/${ESP} -L$(PWD) -D$(MODE)
 
 $(kernels):
 	$(CC) $(CFLAGS) -o $(kernels) -c $*.c

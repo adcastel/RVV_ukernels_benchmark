@@ -1,10 +1,13 @@
 #/bin/bash
 
 ini=8
-end=40
+end=48
 step=8
+ininr=4
+endnr=48
+stepnr=4
 mkdir -p out
-for mode in "UNROLL";
+for mode in LDX OPT BASE;
 do
     for swap in 0 1;
       do
@@ -20,17 +23,17 @@ do
           else
             gg="bcast"
           fi
-	  for r in 512 1024;
+	  for r in 512;
           do
-	    file=out/${mode}_${mm}_${gg}_${r}.dat
-	    echo "" > ${file}
+	    ff=out/${mode}_${mm}_${gg}_${r}.dat
+	    echo "" > ${ff}
             for mr in $(seq ${ini} ${step} ${end});
             do
-               for nr in $(seq ${ini} ${step} ${end});
+               for nr in $(seq ${ininr} ${stepnr} ${endnr});
                do 
 		       make clean
 		       make MR=${mr} NR=${nr} MODE=${mode} GATHER=${gather} SWAP=${swap}
-		       ./test_uk ${mr} ${mr} ${nr} ${nr} ${r} 0 1000 >> ${file}
+		       ./test_uk ${mr} ${mr} ${nr} ${nr} ${r} 0 1000 >> ${ff}
 	      done
 	    done
          done

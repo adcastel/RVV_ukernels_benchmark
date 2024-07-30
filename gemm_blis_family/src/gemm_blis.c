@@ -118,14 +118,20 @@ size_t    ic, jc, pc, mc, nc, kc, ir, jr, mr, nr;
 	    int be = (int)betaI;
 	     ukr = *ukrmatrix[mr][nr][be];
 	     //printf("antes ukernel %dx%d\n",mr,nr);
-	     ukr(NULL, kc, &alpha, 
-			     //(struct exo_win_2f32c){&Ac[ir*kc],{MR,1}},                                  
+	     ukr(NULL, kc, &alpha,
+#ifdef BASE 
+			     (struct exo_win_2f32c){&Ac[ir*kc],{MR,1}},                                  
+			     (struct exo_win_2f32c){&Bc[jr*kc],{NR,1}},   
+#else			     
 			     &Ac[ir*kc],MR,                                  
-			     //(struct exo_win_2f32c){&Bc[jr*kc],{NR,1}},   
 			     &Bc[jr*kc],NR,   
+#endif
 			     &beta,
-			     //(struct exo_win_2f32){Cptr,{m,1}});
-			     Cptr,ldC);
+#ifdef BASE 
+			     (struct exo_win_2f32){Cptr,{m,1}});
+#else		     
+	     Cptr,ldC);
+#endif
 	     //printf("despues ukernel %dx%d\n",mr,nr);
 	     
             #else
