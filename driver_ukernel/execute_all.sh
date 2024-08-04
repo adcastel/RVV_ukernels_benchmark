@@ -7,7 +7,7 @@ ininr=4
 endnr=48
 stepnr=4
 mkdir -p out
-for mode in LDX OPT BASE;
+for mode in UNROLL; #LDX OPT BASE;
 do
     for swap in 0 1;
       do

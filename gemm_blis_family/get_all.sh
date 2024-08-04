@@ -6,9 +6,9 @@ step=8
 ininr=4
 endnr=48
 stepnr=4
-for model in resnet50; #square googlenet vgg16;
+for model in resnet50; # square googlenet vgg16;
 do
-for mode in BASE; # LDX OPT UNROLL;
+for mode in UNROLL; #LDX OPT UNROLL; # BASE;
 do
    for mr in $(seq ${ini} ${step} ${end});
     do
@@ -43,7 +43,8 @@ do
 	     paste tmp_${mr}_${nr}_bcast_loadAB.dat tmp_${mr}_${nr}_bcast_loadBA.dat tmp_${mr}_${nr}_gather_loadAB.dat tmp_${mr}_${nr}_gather_loadBA.dat > out_models/${model}_${mode}_${mr}_${nr}.dat
 	     paste tmp_${mr}_${nr}_bcast_loadAB.dat tmp_${mr}_${nr}_bcast_loadBA.dat tmp_${mr}_${nr}_gather_loadAB.dat tmp_${mr}_${nr}_gather_loadBA.dat
 	     rm tmp_${mr}_${nr}_bcast_loadAB.dat tmp_${mr}_${nr}_bcast_loadBA.dat tmp_${mr}_${nr}_gather_loadAB.dat tmp_${mr}_${nr}_gather_loadBA.dat
-         fi 
+         fi
+	 read 
      done # nr
    done #nr
 done #mode
