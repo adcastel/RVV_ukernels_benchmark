@@ -33,9 +33,15 @@ else
         B=gather
         DB=-Dgather
     else
-        ESP=/loadAB/bcast/
-        B=bcast
-        DB=-Dbcast
+        ifeq ($(GATHER),2)
+            ESP=/loadAB/macc/
+            B=macc
+            DB=-Dmacc
+        else
+            ESP=/loadAB/bcast/
+            B=bcast
+            DB=-Dbcast
+	endif
     endif
     L=loadAB
     DL=-DloadAB
@@ -99,7 +105,7 @@ else ifeq ($(SIMD_MODE), ARMv8_EXO)
 
 else ifeq ($(SIMD_MODE), RVV_EXO)
   SIMD  = -DRVV_EXO
-  FLAGS = -O3 -march=rv64gcvzfh -mabi=lp64d 
+  FLAGS = -O3 -march=rv64gcvzfh -mabi=lp64d -Wfatal-errors 
   _OBJ = exo_matrix_RVV_${DT}.o ${FILE}.o 
   _OBJ += ${_OBJ2}
 else

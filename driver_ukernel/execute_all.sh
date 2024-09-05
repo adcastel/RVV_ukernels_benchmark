@@ -7,7 +7,7 @@ ininr=4
 endnr=48
 stepnr=4
 mkdir -p out
-for mode in UNROLL; #LDX OPT BASE;
+for mode in LDX OPT BASE;
 do
     for swap in 0 1;
       do
@@ -16,14 +16,18 @@ do
           else
             mm="loadAB"
           fi
-        for gather in 0 1;
+        for gather in 0 1 2;
         do
 	  if [ ${gather} -eq 1 ]; then
             gg="gather"
-          else
-            gg="bcast"
+          else 
+	    if [ ${gather} -eq 0 ]; then
+              gg="bcast"
+	    else
+	      gg="macc"
+	    fi
           fi
-	  for r in 512;
+	  for r in 1024 2048;
           do
 	    ff=out/${mode}_${mm}_${gg}_${r}.dat
 	    echo "" > ${ff}

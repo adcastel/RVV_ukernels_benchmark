@@ -1,7 +1,7 @@
 CC=gcc 
 
 #CFLAGS= -O3 -march=rv64gc0p7v
-CFLAGS= -O3 -march=rv64gcv -mabi=lp64d
+CFLAGS= -O3 -march=rv64gcv -mabi=lp64d -Wfatal-errors
 DT=fp32
 
 KPATH=../kernels/RVV_256_${MODE}/${DT}/${MR}x${NR}/
@@ -24,8 +24,13 @@ else
             BCAS=-DGATHER
 	    ESP=/loadAB/gather/
         else
-	    ESP=/loadAB/bcast/
-            BCAS=-DBCAST
+            ifeq ($(GATHER), 0)
+	        ESP=/loadAB/bcast/
+                BCAS=-DBCAST
+	    else
+	        ESP=/loadAB/macc/
+                BCAS=-DMACC
+	    endif
         endif
         SWAP=
 endif

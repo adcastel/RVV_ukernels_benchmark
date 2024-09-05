@@ -18,12 +18,16 @@ do
           else
             mm="loadAB"
           fi
-        for gather in 0 1;
+        for gather in 0 1 2;
         do
 	  if [ ${gather} -eq 1 ]; then
             gg="gather"
           else
-            gg="bcast"
+	    if [ ${gather} -eq 2 ]; then
+              gg="macc"
+            else
+              gg="bcast"
+	    fi
           fi
 	  for r in 512;
           do
