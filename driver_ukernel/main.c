@@ -54,8 +54,8 @@ int main(int argc, char * argv []) {
 
               ukrFunction ukr = *ukrmatrix[M][N][beta0];
               if (ukr == NULL){
-                 printf("Error! The desired ukernel does not exist!\n");
-                return -1;
+                 //printf("Error! The desired ukernel does not exist!\n");
+                continue;
              }
 
              start = dclock();
@@ -105,7 +105,7 @@ printf("%d %d %d %f %f\n", M, N, K, msec, gflops/(msec)); fflush(stdout);
           }
       }
       free(A); free(B); free(C); free(Ce);
-/*
+
       printf("## ");
       for(int j=Ni; j<=Nf; j++){
           printf("%3d ", j);
@@ -119,7 +119,7 @@ printf("%d %d %d %f %f\n", M, N, K, msec, gflops/(msec)); fflush(stdout);
            printf("\n");
        }
   //printf("PASS!\n");
-  */
+  
   return (0);
 }
 

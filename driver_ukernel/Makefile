@@ -4,8 +4,19 @@ CC=gcc
 CFLAGS= -O3 -march=rv64gcv -mabi=lp64d -Wfatal-errors
 DT=fp32
 
-KPATH=../kernels/RVV_256_${MODE}/${DT}/${MR}x${NR}/
-FILE=kernels_RVV_${MR}x${NR}_${DT}
+ifeq ($(BITS), 256)
+	B=256
+else
+	B=128
+endif
+
+KPATH=../kernels/RVV_${B}_${MODE}/${DT}/${MR}x${NR}/
+
+ifeq ($(MODE), ALL)
+    FILE=kernels_RVV_${DT}
+else
+    FILE=kernels_RVV_${MR}x${NR}_${DT}
+endif
 
 ifeq ($(SWAP), 1)
         ifeq ($(GATHER), 1)
