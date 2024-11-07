@@ -57,6 +57,6 @@ fi
 
 
 ff=$1/${bits}_fp${fp}_${gg}_${ss}_${rep}.dat
-make clean
+make clean MR=${mr} NR=${nr} BITS=${bits} MODE=${mode} GATHER=${gather} SWAP=${swap}
 make MR=${mr} NR=${nr} BITS=${bits} MODE=${mode} GATHER=${gather} SWAP=${swap}
 ./test_uk ${mrini} ${mr} ${nrini} ${nr} ${rep} 0 1000 > ${ff}

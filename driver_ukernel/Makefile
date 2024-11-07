@@ -67,4 +67,4 @@ $(KPATH)/$(ESP)/exo_matrix_RVV_${DT}.o:
 	$(CC) $(CFLAGS) -c $*.c $(SWAP) $(BCAS) -I$(PWD)/$(KPATH) -L$(PWD)/$(KPATH)
 
 clean:
-	rm *.o test_uk
+	rm *.o test_uk ${OBJECTS}
